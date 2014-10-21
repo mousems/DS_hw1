@@ -33,45 +33,99 @@ int intStack::pop (){
 }
 //============implete a int Stack.==========
 
-/*
-   class MyString{
-   private:
-   char C[100];
-   int length=0;
+//============MyString=========
+class MyString{
+    private:
+        int length;
+        char C[100];
+    public:
+        MyString(); 
+        void debug();
+        char* varC();
+        void dump();
+        void set(char *CC);
+        void push(char CC);
+        int getLength();
+        char* getString();
+        int find(MyString subject);
 
-   public:
-   int getLength(){
-   return length;
-   }
-   char getString(){
-   char tmp[101];
-   tmp=C;
-   tmp[length]='\n';
-   return tmp;
-   }
-   int find(char *subject) {// return found index , -1 means not found.
+};
+MyString::MyString(void){
+    length=0;
+}
+void MyString::debug(){
+    printf("length:%d\n" ,length);
+    dump();
+}
+char* MyString::varC(){
+    return C;
+}
+void MyString::dump(){
+    for(int i=0; i<length; i++){
+        printf("%c",C[i]);
+    }
+    printf("\n");
+}
 
-   }
-   }
+void MyString::push(char CC){
+    C[length]=CC;
+    length++;
+}
+int MyString::getLength(){
+    return length;
+}
+char* MyString::getString(){
+    char *tmp;
+    tmp=C;
+    tmp[length]='\n';
+    return tmp;
+}
+int MyString::find(MyString subject) { // return found index , -1 means not found.
+    int subi=0; //substring index 
+    bool found=false;
+    char *subjectC=subject.varC();
+    for(int stri=0; stri< this->getLength(); stri++){
+        //scan every entry of C;
+        if(found==true && subi==subject.getLength()){
+            return stri-subject.getLength();
+        }else{
+            if(C[stri]==subjectC[subi]){
+                found=true;
+                subi++;
+            }else{
+                found=false;
+                subi=0;
+            }
+        }
+    }
 
-*/
+
+
+    return -1;
+}
+//==========MyString========
 int main() { 
-    /*
-       MyString str;
-       str.length=0;
-       cout << "Hello! Please input string S first>>";
-       char tmp;
-       bool jump=false;
-       while(scanf("%c" , &tmp) && !jump){
-       if(tmp=='\n'){
-       str.chars[str.length]='\0';
-       jump=true;
-       }else{
-       str.chars[str.length] = tmp;
-       str.length++;
-       }
-       }
-       cout << str.chars;
-       */
+    MyString str;
+    cout << "Hello! Please input string S first>>";
+    char tmp;
+    while(scanf("%c" , &tmp)){
+        if(tmp=='\n'){
+            break;
+        }else{
+            str.push(tmp);
+        }
+    }
+    
+    
+    cout << "Please input string str which will find in S>>";    
+    MyString tofind;
+    while(scanf("%c" , &tmp)){
+        if(tmp=='\n'){
+            break;
+        }else{
+            tofind.push(tmp);
+        }
+    }
+    printf("%d" , str.find(tofind));
     return 0; 
 }
