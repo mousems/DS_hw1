@@ -135,8 +135,20 @@ int main() {
             }
         }
 
+        int start , retr , count;
+        start = 0;
+        count = -1;
+        retr = 0;
+        while(retr != -1){
+            retr = S.find(str,start);
+            start = retr+1;
+            count++;
+        }
 
-        printf("%d" , S.find(str,5));
+
+
+
+        printf("Total occurrences : %d\n" , count);
     }else if(tmp=='2'){
 
     }else if(tmp=='3'){
