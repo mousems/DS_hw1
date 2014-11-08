@@ -42,6 +42,7 @@ class MyString{
     public:
         MyString(); 
         void debug();
+        void clean();
         char* varC();
         void dump();
         void set(char *CC);
@@ -49,7 +50,7 @@ class MyString{
         int getLength();
         char* getString();
         int find(MyString subject , int Start);
-
+        void removeAt(int index , int length);
 };
 MyString::MyString(void){
     length=0;
@@ -67,7 +68,12 @@ void MyString::dump(){
     }
     printf("\n");
 }
-
+void MyString::clean(){
+    for (int i = 0; i < 100; ++i){
+        C[i]='\0';
+    }
+    length=0;
+}
 void MyString::push(char CC){
     C[length]=CC;
     length++;
@@ -103,6 +109,26 @@ int MyString::find(MyString subject ,int start) { // return found index , -1 mea
     }
     return -1;
 }
+void MyString::removeAt(int index , int replength){
+    char newS[100];
+    int newLength;
+    newLength = 0;
+    for(int i=0 ; i<index ; i++){
+        newS[newLength] = C[i];
+        newLength ++;
+    }
+    for(int i=index+replength ; i<length ; i++){
+        newS[newLength] = C[i];
+        newLength ++;
+    }
+    this->clean();
+    for (int i = 0; i < newLength; i++)
+    {
+        
+        this->push(newS[i]);
+    }
+}  
+
 //==========MyString========
 int main() { 
 
@@ -112,14 +138,14 @@ int main() {
     char tmp;
     while(scanf("%c" , &tmp)){
         if(tmp=='\n'){
-            break;
+            bre;
         }else{
             S.push(tmp);
         }
     }
     
     
-    cout << "(1) Frequency , (2) CharacterDelete , (3) Replacement , (other) for Break >>";
+    cout << "(1) Frequency , (2) CharacterDelete , (3) Replacement , (other) for Bre >>";
 
     char tmp2;
     scanf("%c" , &tmp);
@@ -129,7 +155,7 @@ int main() {
         MyString str;
         while(scanf("%c" , &tmp)){
             if(tmp=='\n'){
-                break;
+                bre;
             }else{
                 str.push(tmp);
             }
@@ -151,7 +177,37 @@ int main() {
         printf("Total occurrences : %d\n" , count);
     }else if(tmp=='2'){
 
+        cout << "Please input string str which will find in S>>";    
+        MyString str;
+        while(scanf("%c" , &tmp)){
+            if(tmp=='\n'){
+                bre;
+            }else{
+                str.push(tmp);
+            }
+        }
+
+        int start , retr , count;
+        start = 0;
+        retr = 0;
+        count = 0;
+        intStack intStack;
+        while(retr != -1){
+            retr = S.find(str,start);
+            start = retr+1;
+            if (retr != -1){
+                intStack.push(retr);
+                count++;
+            }
+        }
+
+        for (int i = 0; i < count; i++){
+            S.removeAt(intStack.pop() , str.getLength());
+        }
+        cout << S.getString();
+        cout << "\n";
     }else if(tmp=='3'){
+
 
     }
 
