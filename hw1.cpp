@@ -31,6 +31,7 @@ int intStack::pop (){
     }
     return num[--length];
 }
+
 //============implete a int Stack.==========
 
 //============MyString=========
@@ -47,7 +48,7 @@ class MyString{
         void push(char CC);
         int getLength();
         char* getString();
-        int find(MyString subject);
+        int find(MyString subject , int Start);
 
 };
 MyString::MyString(void){
@@ -80,14 +81,16 @@ char* MyString::getString(){
     tmp[length]='\n';
     return tmp;
 }
-int MyString::find(MyString subject) { // return found index , -1 means not found.
+int MyString::find(MyString subject ,int start) { // return found index , -1 means not found.
     int subi=0; //substring index 
     bool found=false;
     char *subjectC=subject.varC();
-    for(int stri=0; stri< this->getLength(); stri++){
+
+    for(int stri=start; stri< this->getLength(); stri++){
         //scan every entry of C;
         if(found==true && subi==subject.getLength()){
             return stri-subject.getLength();
+            // intStack.push(stri-subject.getLength());
         }else{
             if(C[stri]==subjectC[subi]){
                 found=true;
@@ -98,13 +101,12 @@ int MyString::find(MyString subject) { // return found index , -1 means not foun
             }
         }
     }
-
-
-
     return -1;
 }
 //==========MyString========
 int main() { 
+
+
     MyString str;
     cout << "Hello! Please input string S first>>";
     char tmp;
@@ -117,6 +119,10 @@ int main() {
     }
     
     
+
+
+
+
     cout << "Please input string str which will find in S>>";    
     MyString tofind;
     while(scanf("%c" , &tmp)){
@@ -126,6 +132,13 @@ int main() {
             tofind.push(tmp);
         }
     }
-    printf("%d" , str.find(tofind));
+
+
+
+
+    printf("%d" , str.find(tofind,5));
     return 0; 
 }
+
+
+
