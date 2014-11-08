@@ -43,6 +43,8 @@ class MyString{
         MyString(); 
         void debug();
         void clean();
+        void replace(int index , int replength , MyString replaceto);
+        char CAt(int index);
         char* varC();
         void dump();
         void set(char *CC);
@@ -61,6 +63,9 @@ void MyString::debug(){
 }
 char* MyString::varC(){
     return C;
+}
+char MyString::CAt(int index){
+    return C[index];
 }
 void MyString::dump(){
     for(int i=0; i<length; i++){
@@ -129,6 +134,34 @@ void MyString::removeAt(int index , int replength){
     }
 }  
 
+void MyString::replace(int index , int replength , MyString replaceto){
+    char newS[100];
+    int newLength;
+    newLength = 0;
+    for(int i=0 ; i<index ; i++){
+        newS[newLength] = C[i];
+
+        newLength ++;
+    }
+
+    for(int i=0 ; i<replaceto.getLength() ; i++){
+        newS[newLength] = replaceto.CAt(i);
+
+        newLength ++;
+    }
+
+    for(int i=index+replength ; i<length ; i++){
+        newS[newLength] = C[i];
+        newLength ++;
+    }
+
+    this->clean();
+    for (int i = 0; i < newLength; i++)
+    {
+        
+        this->push(newS[i]);
+    }
+}  
 //==========MyString========
 int main() { 
 
@@ -138,14 +171,14 @@ int main() {
     char tmp;
     while(scanf("%c" , &tmp)){
         if(tmp=='\n'){
-            bre;
+            break;
         }else{
             S.push(tmp);
         }
     }
     
     
-    cout << "(1) Frequency , (2) CharacterDelete , (3) Replacement , (other) for Bre >>";
+    cout << "(1) Frequency , (2) CharacterDelete , (3) Replacement , (other) for Break >>";
 
     char tmp2;
     scanf("%c" , &tmp);
@@ -155,7 +188,7 @@ int main() {
         MyString str;
         while(scanf("%c" , &tmp)){
             if(tmp=='\n'){
-                bre;
+                break;
             }else{
                 str.push(tmp);
             }
@@ -181,7 +214,7 @@ int main() {
         MyString str;
         while(scanf("%c" , &tmp)){
             if(tmp=='\n'){
-                bre;
+                break;
             }else{
                 str.push(tmp);
             }
@@ -209,6 +242,48 @@ int main() {
     }else if(tmp=='3'){
 
 
+        cout << "Please input string str1 which will find in S>>";    
+        MyString str1;
+        while(scanf("%c" , &tmp)){
+            if(tmp=='\n'){
+                break;
+            }else{
+                str1.push(tmp);
+            }
+        }
+
+
+        cout << "Please input string str2 which will replace to in S>>";    
+        MyString str2;
+        while(scanf("%c" , &tmp)){
+            if(tmp=='\n'){
+                break;
+            }else{
+                str2.push(tmp);
+            }
+        }
+
+
+
+        int start , retr , count;
+        start = 0;
+        retr = 0;
+        count = 0; 
+        intStack intStack;
+        while(retr != -1){
+            retr = S.find(str1,start);
+            start = retr+1;
+            if (retr != -1){
+                intStack.push(retr);
+                count++;
+            }
+        }
+
+        for (int i = 0; i < count; i++){
+            S.replace(intStack.pop() , str1.getLength() , str2);
+        }
+        cout << S.getString();
+        cout << "\n";
     }
 
     
