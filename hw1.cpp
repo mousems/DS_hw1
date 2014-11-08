@@ -107,36 +107,48 @@ int MyString::find(MyString subject ,int start) { // return found index , -1 mea
 int main() { 
 
 
-    MyString str;
+    MyString S;
     cout << "Hello! Please input string S first>>";
     char tmp;
     while(scanf("%c" , &tmp)){
         if(tmp=='\n'){
             break;
         }else{
-            str.push(tmp);
+            S.push(tmp);
         }
     }
     
     
+    cout << "(1) Frequency , (2) CharacterDelete , (3) Replacement , (other) for Break >>";
 
-
-
-
-    cout << "Please input string str which will find in S>>";    
-    MyString tofind;
-    while(scanf("%c" , &tmp)){
-        if(tmp=='\n'){
-            break;
-        }else{
-            tofind.push(tmp);
+    char tmp2;
+    scanf("%c" , &tmp);
+    scanf("%c" , &tmp2);
+    if (tmp=='1'){
+        cout << "Please input string str which will find in S>>";    
+        MyString str;
+        while(scanf("%c" , &tmp)){
+            if(tmp=='\n'){
+                break;
+            }else{
+                str.push(tmp);
+            }
         }
+
+
+        printf("%d" , S.find(str,5));
+    }else if(tmp=='2'){
+
+    }else if(tmp=='3'){
+
     }
 
+    
 
 
 
-    printf("%d" , str.find(tofind,5));
+
+    
     return 0; 
 }
 
